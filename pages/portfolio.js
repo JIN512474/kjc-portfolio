@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Head from "next/head";
 import fs from "fs";
 import path from "path";
-import { useLang } from "./useLang";
+import { useLang } from "../components/useLang";
 
 const SITE = {
   name: "KWON JINCHAN",

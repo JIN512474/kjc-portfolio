@@ -1,5 +1,5 @@
 // pages/index.js
-import { useLang } from "./useLang";
+import { useLang } from "../components/useLang";
 import React from "react";
 import Head from "next/head";
 

@@ -1,7 +1,7 @@
 // pages/web-dev.js
 import React from "react";
 import Head from "next/head";
-import { useLang } from "./useLang";
+import { useLang } from "../components/useLang";
 
 const SITE = {
   name: "KWON JINCHAN",

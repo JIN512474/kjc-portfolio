@@ -20,6 +20,6 @@ export function useLang() {
     }
   };
 
-  // 페이지 쪽에서: const [lang, updateLang] = useLang();
+  // 사용: const [lang, updateLang] = useLang();
   return [lang, updateLang];
 }
