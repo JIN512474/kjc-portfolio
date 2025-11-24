@@ -1,10 +1,10 @@
-// pages/useLang.js
+// components/useLang.js
 import { useEffect, useState } from "react";
 
 export function useLang() {
   const [lang, setLang] = useState("ko");
 
-  // 첫 로딩 시 localStorage에서 언어 복원
+  // 첫 로딩 때 localStorage에서 언어 읽어오기
   useEffect(() => {
     if (typeof window === "undefined") return;
     const saved = window.localStorage.getItem("kjc-lang");
@@ -20,5 +20,6 @@ export function useLang() {
     }
   };
 
+  // 페이지 쪽에서: const [lang, updateLang] = useLang();
   return [lang, updateLang];
 }
