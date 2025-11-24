@@ -4,6 +4,7 @@ import Head from "next/head";
 import fs from "fs";
 import path from "path";
 import { useLang } from "../components/useLang";
+import Header from "../components/Header"; // ✅ 공통 헤더 적용
 
 const SITE = {
   name: "KWON JINCHAN",
@@ -34,12 +35,9 @@ export async function getStaticProps() {
     const basePath = path.join(publicDir, category);
     if (!fs.existsSync(basePath)) return;
 
-    // 시리즈 폴더 정렬 (1,2,3,...10 순)
     const folderNamesRaw = fs
       .readdirSync(basePath)
-      .filter((f) =>
-        fs.lstatSync(path.join(basePath, f)).isDirectory()
-      );
+      .filter((f) => fs.lstatSync(path.join(basePath, f)).isDirectory());
 
     const folderNames = sortByNumericName(folderNamesRaw);
 
@@ -52,12 +50,9 @@ export async function getStaticProps() {
 
       if (images.length === 0) return;
 
-      // 각 시리즈 안의 이미지도 숫자 기준 정렬
       images = sortByNumericName(images);
 
-      const imageUrls = images.map(
-        (img) => `/${category}/${folder}/${img}`
-      );
+      const imageUrls = images.map((img) => `/${category}/${folder}/${img}`);
 
       series.push({
         id: `${category}-${folder}`,
@@ -74,70 +69,6 @@ export async function getStaticProps() {
   scanCategory("product", "Product Series", "PRODUCT · STUDIO");
 
   return { props: { series } };
-}
-
-function Header({ lang, setLang }) {
-  return (
-    <header className="sticky top-0 z-30 bg-black/80 backdrop-blur border-b border-neutral-800">
-      <div className="max-w-6xl mx-auto px-6 h-14 md:h-16 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-neutral-100">
-        <a
-          href="/"
-          className="font-medium text-[11px] md:text-xs hover:text-neutral-300 transition"
-        >
-          {SITE.name}
-        </a>
-
-        <div className="flex items-center gap-6">
-          <nav className="flex items-center gap-5 text-[10px] md:text-[11px] text-neutral-300">
-            <a href="/" className="hover:text-neutral-50">
-              {lang === "ko" ? "홈" : "Home"}
-            </a>
-            <span className="text-neutral-50">
-              {lang === "ko" ? "포트폴리오" : "Portfolio"}
-            </span>
-            <a href="/web-dev" className="hover:text-neutral-50">
-              {lang === "ko" ? "웹개발" : "Web Dev"}
-            </a>
-            <a
-              href="https://www.youtube.com/@Jin-t3q2z"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-neutral-50"
-            >
-              {lang === "ko" ? "유튜브" : "YouTube"}
-            </a>
-            <a href="/contact" className="hover:text-neutral-50">
-              {lang === "ko" ? "문의" : "Contact"}
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-1 text-[10px] md:text-[11px]">
-            <button
-              onClick={() => setLang("ko")}
-              className={
-                lang === "ko"
-                  ? "text-neutral-50"
-                  : "text-neutral-500 hover:text-neutral-200"
-              }
-            >
-              KR
-            </button>
-            <span className="text-neutral-500">/</span>
-            <button
-              onClick={() => setLang("en")}
-              className={
-                lang === "en"
-                  ? "text-neutral-50"
-                  : "text-neutral-500 hover:text-neutral-200"
-              }
-            >
-              EN
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
 }
 
 export default function Portfolio({ series }) {
@@ -177,6 +108,7 @@ export default function Portfolio({ series }) {
       </Head>
 
       <div className="relative min-h-screen bg-black text-neutral-50 overflow-hidden">
+        {/* 필름 그레인 */}
         <div
           className="pointer-events-none fixed inset-0 opacity-[0.18] mix-blend-soft-light"
           style={{
@@ -185,6 +117,7 @@ export default function Portfolio({ series }) {
           }}
         />
 
+        {/* ✅ 공통 Header */}
         <Header lang={lang} setLang={setLang} />
 
         <main className="relative px-6 pt-24 pb-20">
@@ -193,6 +126,7 @@ export default function Portfolio({ series }) {
               PORTFOLIO
             </h1>
 
+            {/* 필터 */}
             <div className="flex gap-3 mb-10 text-xs">
               <button
                 onClick={() => setFilter("people")}
@@ -205,6 +139,7 @@ export default function Portfolio({ series }) {
               >
                 {lang === "ko" ? "인물" : "People"}
               </button>
+
               <button
                 onClick={() => setFilter("product")}
                 className={
@@ -218,6 +153,7 @@ export default function Portfolio({ series }) {
               </button>
             </div>
 
+            {/* 그리드 */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {filtered.map((p, index) => (
                 <button
@@ -235,14 +171,13 @@ export default function Portfolio({ series }) {
                   <div className="mt-3 text-[11px] uppercase tracking-[0.2em] text-neutral-300">
                     {p.meta}
                   </div>
-                  <div className="mt-1 text-sm text-neutral-50">
-                    {p.title}
-                  </div>
+                  <div className="mt-1 text-sm text-neutral-50">{p.title}</div>
                 </button>
               ))}
             </div>
           </section>
 
+          {/* 라이트박스 */}
           {activeProjectIndex !== null && (
             <Lightbox
               series={filtered}
@@ -279,10 +214,7 @@ function Lightbox({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <button
-        onClick={onClose}
-        className="absolute top-5 right-5 text-white text-3xl"
-      >
+      <button onClick={onClose} className="absolute top-5 right-5 text-white text-3xl">
         ×
       </button>
 

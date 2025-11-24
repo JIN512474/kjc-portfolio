@@ -1,81 +1,14 @@
 // pages/index.js
-import { useLang } from "../components/useLang";
 import React from "react";
 import Head from "next/head";
+import { useLang } from "../components/useLang";
+import Header from "../components/Header";
 
 const SITE = {
   name: "KWON JINCHAN",
   cityKo: "서울, 대한민국",
   cityEn: "Seoul, Korea",
 };
-
-function Header({ lang, setLang }) {
-  return (
-    <header className="sticky top-0 z-30 bg-black/80 backdrop-blur border-b border-neutral-800">
-      <div className="max-w-6xl mx-auto px-6 h-14 md:h-16 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-neutral-100">
-        <a
-          href="/"
-          className="font-medium text-[11px] md:text-xs hover:text-neutral-300 transition"
-        >
-          {SITE.name}
-        </a>
-
-        <div className="flex items-center gap-6">
-          <nav className="flex items-center gap-5 text-[10px] md:text-[11px] text-neutral-300">
-            <span className="text-neutral-50">
-              {lang === "ko" ? "홈" : "Home"}
-            </span>
-
-            <a href="/portfolio" className="hover:text-neutral-50">
-              {lang === "ko" ? "포트폴리오" : "Portfolio"}
-            </a>
-
-            <a href="/web-dev" className="hover:text-neutral-50">
-              {lang === "ko" ? "웹개발" : "Web Dev"}
-            </a>
-
-            <a
-              href="https://www.youtube.com/@Jin-t3q2z"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-neutral-50"
-            >
-              {lang === "ko" ? "유튜브" : "YouTube"}
-            </a>
-
-            <a href="/contact" className="hover:text-neutral-50">
-              {lang === "ko" ? "문의" : "Contact"}
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-1 text-[10px] md:text-[11px]">
-            <button
-              onClick={() => setLang("ko")}
-              className={
-                lang === "ko"
-                  ? "text-neutral-50"
-                  : "text-neutral-500 hover:text-neutral-200"
-              }
-            >
-              KR
-            </button>
-            <span className="text-neutral-500">/</span>
-            <button
-              onClick={() => setLang("en")}
-              className={
-                lang === "en"
-                  ? "text-neutral-50"
-                  : "text-neutral-500 hover:text-neutral-200"
-              }
-            >
-              EN
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
 
 export default function Home() {
   const [lang, setLang] = useLang();
@@ -161,6 +94,7 @@ export default function Home() {
         </section>
       </main>
 
+      {/* 글로벌 스타일로 마퀴 애니메이션 */}
       <style jsx global>{`
         .marquee {
           position: relative;
