@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # Ignore public large originals
 public/**/originals/
+# macOS AppleDouble
+._*
+.DS_Store
