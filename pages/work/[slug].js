@@ -110,6 +110,7 @@ function DetailCarousel({ images, title }) {
                   fill
                   priority={index === 0}
                   sizes="100vw"
+                  quality={78}
                   className="object-contain"
                 />
               </div>

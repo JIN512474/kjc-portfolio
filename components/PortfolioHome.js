@@ -27,9 +27,9 @@ function WorkCarousel({ title, href, items }) {
                 src={work.image}
                 alt={work.title}
                 fill
-                sizes="(min-width: 768px) 448px, 78vw"
+                sizes="(min-width: 768px) 448px, 82vw"
+                quality={68}
                 className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                priority={index < 2}
               />
             </div>
             <div className="mt-3 flex items-start justify-between gap-4 font-mono text-xs uppercase">

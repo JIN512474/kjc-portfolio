@@ -81,9 +81,10 @@ export default function WorksGridPage({
                   src={work.image}
                   alt={work.title}
                   fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  quality={68}
                   className="object-cover transition duration-700 group-hover:scale-105"
-                  priority={index < 3}
+                  priority={index === 0}
                 />
 
                 <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 bg-gradient-to-t from-[#f6f3ec]/85 to-transparent p-3 pt-16 font-mono text-xs font-bold uppercase leading-none text-[#111] md:bg-transparent md:p-4 md:text-lg md:text-[#2a2a2a] md:mix-blend-multiply">
