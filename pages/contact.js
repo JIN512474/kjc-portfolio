@@ -1,239 +1,101 @@
-// pages/contact.js
-import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { useLang } from "../components/useLang";
-import ShutterIntro from "../components/ShutterIntro";
+import Link from "next/link";
+import SiteFrame from "../components/SiteFrame";
 
-const SITE = {
-  name: "KWON JINCHAN",
-};
+const contactRows = [
+  ["Email", "rwc13690@naver.com", "mailto:rwc13690@naver.com"],
+  ["Instagram", "@105__054", "https://www.instagram.com/105__054"],
+  ["YouTube", "@Jin-t3q2z", "https://www.youtube.com/@Jin-t3q2z"],
+];
 
-function Header({ lang, setLang }) {
-  const [open, setOpen] = useState(false);
-
-  const label = (ko, en) => (lang === "ko" ? ko : en);
-
-  return (
-    <header className="sticky top-0 z-30 bg-black/80 backdrop-blur border-b border-neutral-800">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 md:h-16 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-neutral-100 relative">
-        
-        {/* LOGO */}
-        <a
-          href="/"
-          className="font-medium text-[11px] md:text-xs hover:text-neutral-300 transition"
-        >
-          {SITE.name}
-        </a>
-
-        {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-6">
-          <nav className="flex items-center gap-5 text-[10px] md:text-[11px] text-neutral-300">
-
-            <a href="/" className="hover:text-neutral-50">
-              {label("홈", "Home")}
-            </a>
-
-            <a href="/portfolio" className="hover:text-neutral-50">
-              {label("포트폴리오", "Portfolio")}
-            </a>
-
-            <a href="/web-dev" className="hover:text-neutral-50">
-              {label("웹개발", "Web Dev")}
-            </a>
-
-            {/* 🔥 유튜브 언어 전환 적용 */}
-            <a
-              href="https://www.youtube.com/@Jin-t3q2z"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-neutral-50"
-            >
-              {label("유튜브", "YouTube")}
-            </a>
-
-            <span className="text-neutral-50">
-              {label("문의", "Contact")}
-            </span>
-          </nav>
-
-          {/* LANG SWITCHER */}
-          <div className="flex items-center gap-1 text-[10px] md:text-[11px]">
-            <button
-              onClick={() => setLang("ko")}
-              className={lang === "ko" ? "text-neutral-50" : "text-neutral-500 hover:text-neutral-200"}
-            >
-              KR
-            </button>
-            <span className="text-neutral-500">/</span>
-            <button
-              onClick={() => setLang("en")}
-              className={lang === "en" ? "text-neutral-50" : "text-neutral-500 hover:text-neutral-200"}
-            >
-              EN
-            </button>
-          </div>
-        </div>
-
-        {/* MOBILE NAV TOGGLE */}
-        <div className="flex items-center gap-3 md:hidden">
-          <div className="flex items-center gap-1 text-[10px]">
-            <button
-              onClick={() => setLang("ko")}
-              className={lang === "ko" ? "text-neutral-50" : "text-neutral-500 hover:text-neutral-200"}
-            >
-              KR
-            </button>
-            <span className="text-neutral-500">/</span>
-            <button
-              onClick={() => setLang("en")}
-              className={lang === "en" ? "text-neutral-50" : "text-neutral-500 hover:text-neutral-200"}
-            >
-              EN
-            </button>
-          </div>
-
-          {/* HAMBURGER BUTTON */}
-          <button
-            onClick={() => setOpen((v) => !v)}
-            className="w-7 h-7 flex flex-col items-center justify-center gap-[3px] border border-neutral-600 rounded-sm"
-          >
-            <span className="w-4 h-[1px] bg-neutral-100" />
-            <span className="w-4 h-[1px] bg-neutral-100" />
-            <span className="w-4 h-[1px] bg-neutral-100" />
-          </button>
-        </div>
-
-        {/* MOBILE MENU */}
-        {open && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-black border-b border-neutral-800">
-            <div className="px-6 py-4 flex flex-col gap-3 text-[10px] uppercase tracking-[0.25em] text-neutral-200">
-              <a href="/" onClick={() => setOpen(false)}>{label("홈", "Home")}</a>
-              <a href="/portfolio" onClick={() => setOpen(false)}>{label("포트폴리오", "Portfolio")}</a>
-              <a href="/web-dev" onClick={() => setOpen(false)}>{label("웹개발", "Web Dev")}</a>
-
-              {/* 🔥 여기에도 유튜브 언어 전환 적용 */}
-              <a
-                href="https://www.youtube.com/@Jin-t3q2z"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setOpen(false)}
-              >
-                {label("유튜브", "YouTube")}
-              </a>
-
-              <span className="text-neutral-50">{label("문의", "Contact")}</span>
-            </div>
-          </div>
-        )}
-      </div>
-    </header>
-  );
-}
+const projectTypes = [
+  "Portrait / Profile",
+  "Product / Commerce",
+  "Brand Campaign",
+  "Lookbook / Editorial",
+];
 
 export default function ContactPage() {
-  const [lang, setLang] = useLang();
-  const [showIntro, setShowIntro] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowIntro(false), 1600);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const label = (ko, en) => (lang === "ko" ? ko : en);
-
   return (
-    <div className="min-h-screen bg-black text-neutral-50 relative">
+    <SiteFrame>
       <Head>
-        <title>Contact — KWON JINCHAN</title>
+        <title>Contact - KWON JINCHAN</title>
+        <meta
+          name="description"
+          content="Contact KWON JINCHAN for portrait, product, brand campaign, and editorial photography projects."
+        />
       </Head>
 
-      {showIntro && <ShutterIntro />}
-
-      <Header lang={lang} setLang={setLang} />
-
-      <main className="max-w-6xl mx-auto px-6 py-16 md:py-20">
-        
-        <h1 className="text-[32px] md:text-[48px] font-semibold tracking-tight mb-10">
-          {label("촬영 및 협업 문의", "Bookings & Collaboration")}
-        </h1>
-
-        <div className="grid md:grid-cols-2 gap-12 text-sm md:text-[15px] leading-relaxed">
-          
-          {/* LEFT TEXT */}
-          <div className="space-y-4 text-neutral-200">
-            {lang === "ko" ? (
-              <>
-                <p>브랜드, 아티스트, 개인 포트레이트 및 제품 촬영 등 프로젝트를 함께 고민합니다.</p>
-                <p>레퍼런스와 원하는 무드가 있다면 함께 보내주시면 더욱 정확한 상담이 가능합니다.</p>
-                <ul className="mt-4 space-y-2 text-neutral-300">
-                  <li>· 브랜드/광고 캠페인 & 담당자 촬영</li>
-                  <li>· 화보형 인물 촬영 및 스튜디오 세션</li>
-                  <li>· 화보 온/오프라인 및 커머스용 제품 촬영</li>
-                  <li>· 사용 용도 (온라인, 인쇄물, 캠페인 등)</li>
-                </ul>
-                <p className="mt-6 text-neutral-400 text-xs">
-                  서울, 대한민국을 베이스로 국내 및 해외 촬영 협의 가능합니다.
-                </p>
-              </>
-            ) : (
-              <>
-                <p>I collaborate on brand portraits, campaigns and product-focused works.</p>
-                <p>Share references and preferred mood for accurate project alignment.</p>
-                <ul className="mt-4 space-y-2 text-neutral-300">
-                  <li>· Brand / campaign portraits</li>
-                  <li>· Editorial / studio portrait sessions</li>
-                  <li>· Product photography for e-commerce & editorial</li>
-                  <li>· For digital, print, campaign usage</li>
-                </ul>
-                <p className="mt-6 text-neutral-400 text-xs">
-                  Based in Seoul · Available for global projects
-                </p>
-              </>
-            )}
+      <section className="px-4 py-8 md:px-6 md:py-14">
+        <div className="mb-8 flex items-start justify-between gap-5 md:mb-12 md:gap-6">
+          <div className="flex items-start gap-3">
+            <h1 className="text-5xl font-black uppercase leading-[0.82] sm:text-6xl md:text-[8.5vw] md:leading-[0.72]">
+              Contact
+            </h1>
+            <span className="font-mono text-xs font-bold leading-none md:mt-2 md:text-lg">
+              [04]
+            </span>
           </div>
+          <p className="hidden max-w-sm pt-2 font-mono text-[11px] uppercase leading-relaxed text-[#5f5b55] md:block">
+            Bookings, collaborations, campaign and editorial projects.
+          </p>
+        </div>
 
-          {/* RIGHT SIDE */}
-          <div className="space-y-6">
-            
-            {/* EMAIL */}
-            <div>
-              <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-400 mb-2">EMAIL</h2>
-
-              {/* 🔥 새 이메일 적용 */}
-              <a href="mailto:rwc13690@naver.com" className="text-[15px] hover:underline">
-                rwc13690@naver.com
-              </a>
-            </div>
-
-            {/* INSTAGRAM */}
-            <div>
-              <h2 className="text-xs uppercase tracking-[0.25em] text-neutral-400 mb-2">
-                INSTAGRAM
-              </h2>
-              <a
-                href="https://www.instagram.com/105__054"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[15px] hover:underline"
-              >
-                @105__054
-              </a>
-            </div>
-
-            {/* NOTICE */}
-            <div className="pt-4 border-t border-neutral-800 text-xs text-neutral-400">
-              {label(
-                "촬영 일정은 문의 후 확정되며, 스튜디오 대관이 필요한 경우 예산과 컨셉에 맞춰 별도 견적을 안내드립니다.",
-                "Schedules are confirmed after consultation. Studio bookings can be arranged based on budget and concept."
-              )}
-            </div>
+        <div className="grid gap-6 border-y border-[#111] py-8 md:grid-cols-[0.8fr_1.2fr] md:gap-10 md:py-14">
+          <p className="font-mono text-[11px] uppercase">Project Request</p>
+          <div className="space-y-6 md:space-y-8">
+            <p className="max-w-5xl text-2xl font-black uppercase leading-[1.02] sm:text-3xl md:text-[5.7vw] md:leading-[0.92]">
+              Send the mood, schedule, usage, and the images you need.
+            </p>
+            <p className="max-w-3xl text-base font-semibold leading-relaxed md:text-3xl md:leading-snug">
+              촬영 목적, 레퍼런스, 사용 범위, 희망 일정과 예산을 함께 보내주시면 가장 빠르게
+              방향을 잡을 수 있습니다.
+            </p>
           </div>
         </div>
 
-        <footer className="mt-16 text-[11px] text-neutral-500 uppercase tracking-[0.2em]">
-          Seoul, Korea — © {new Date().getFullYear()} Kwon Jinchan
-        </footer>
-      </main>
-    </div>
+        <section className="grid gap-px bg-[#111] p-px md:grid-cols-3">
+          {contactRows.map(([label, value, href]) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith("http") ? "_blank" : undefined}
+              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="group bg-[#f6f3ec] p-4 transition hover:bg-[#111] hover:text-[#f6f3ec] md:p-6"
+            >
+              <p className="mb-6 font-mono text-[10px] uppercase text-[#5f5b55] group-hover:text-[#aaa39a] md:mb-10 md:text-[11px]">
+                {label}
+              </p>
+              <p className="break-words text-xl font-black uppercase leading-tight md:text-3xl md:leading-none">
+                {value}
+              </p>
+            </a>
+          ))}
+        </section>
+
+        <section className="grid gap-6 py-12 md:grid-cols-[0.8fr_1.2fr] md:gap-10 md:py-24">
+          <p className="font-mono text-[11px] uppercase text-[#5f5b55]">Available For</p>
+          <div className="grid gap-px bg-[#111] p-px md:grid-cols-2">
+            {projectTypes.map((type) => (
+              <div key={type} className="bg-[#f6f3ec] p-4 md:p-5">
+                <p className="text-2xl font-black uppercase leading-tight md:text-5xl md:leading-none">
+                  {type}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="border-t border-[#111] py-10 md:py-12">
+          <Link
+            href="/works"
+            className="flex items-center justify-between gap-5 font-mono text-[11px] uppercase transition hover:opacity-50"
+          >
+            <span>Before Contact</span>
+            <span>[ View Works ]</span>
+          </Link>
+        </section>
+      </section>
+    </SiteFrame>
   );
 }
